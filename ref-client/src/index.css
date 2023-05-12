@@ -1,0 +1,22 @@
+/*@tailwind base;*/
+@tailwind components;
+@tailwind utilities;
+
+html, body, #app {
+    height: 100%;
+    /*overflow-x: hidden;*/
+    min-width: 375px;
+    color: #333;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.el-date-editor {
+    --el-date-editor-width: 100%;
+
+    display: inline-flex;
+
+}
+
+.el-input__wrapper {
+    width: 100%;
+}

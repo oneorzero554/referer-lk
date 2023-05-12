@@ -1,0 +1,16 @@
+const STATUS = {
+  IN_WORK: 1,
+  FAILED: 2,
+  SUCCESSFUL: 3,
+}
+
+const STATUS_NAME = {}
+
+STATUS_NAME[STATUS.IN_WORK] = 'В работе'
+STATUS_NAME[STATUS.FAILED] = 'Отказ'
+STATUS_NAME[STATUS.SUCCESSFUL] = 'Успешно'
+
+export {
+  STATUS,
+  STATUS_NAME,
+}

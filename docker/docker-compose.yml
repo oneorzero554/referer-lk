@@ -1,0 +1,62 @@
+version: "3.8"
+services:
+  frontend:
+    image: node:alpine
+    entrypoint: /bin/sh
+    ports:
+      - "3000:3000"
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: ../ref-client
+        target: /app
+    tty: true
+  api:
+    build:
+      args:
+        user: orz
+        uid: 1000
+      context: ./api
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ../ref-api:/var/www
+    networks:
+      - ref-app
+  nginx:
+    image: nginx:1.17-alpine
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ../ref-api:/var/www
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - ref-app
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ref-db
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - ref-app
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    links:
+      - db:db
+    ports:
+      - "8001:80"
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    networks:
+      - ref-app
+networks:
+  ref-app:
+    driver: bridge
+
