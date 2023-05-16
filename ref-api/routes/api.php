@@ -7,6 +7,8 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\RequestsController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\SourcesController;
+use App\Http\Requests\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,7 +31,22 @@ Route::controller(AuthController::class)->prefix('auth')->group(function() {
     Route::get('me', 'me');
 });
 
-Route::middleware('auth:api')->group(function() {
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return response()->redirectTo(env('APP_FRONTEND'));
+})->middleware(['signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    if ($request->user()->hasVerifiedEmail()) {
+        return response()->json(['verified' => true]);
+    }
+
+    $request->user()->sendEmailVerificationNotification();
+
+    return response()->json([], 204);
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::middleware(['auth:api'])->group(function() {
     Route::controller(SitesController::class)->prefix('sites')->group(function() {
         Route::get('list', 'list');
     });

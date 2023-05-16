@@ -5,8 +5,9 @@
       <el-divider/>
 
       <el-text class="mr-1" type="info">Уже есть учетная запись?</el-text>
+
       <router-link to="/login">
-        <el-text type="primary">Войти</el-text>
+        <el-link class="text-base" type="primary">Войти</el-link>
       </router-link>
 
     </el-card>

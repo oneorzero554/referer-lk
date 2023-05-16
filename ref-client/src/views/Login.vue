@@ -6,7 +6,7 @@
 
       <el-text class="mr-1" type="info">Еще нет учетной записи?</el-text>
       <router-link to="/registration">
-        <el-text type="primary">Зарегистрироваться</el-text>
+        <el-link class="text-base" type="primary">Зарегистрироваться</el-link>
       </router-link>
 
     </el-card>

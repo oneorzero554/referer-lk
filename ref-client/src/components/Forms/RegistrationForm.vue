@@ -62,8 +62,13 @@
 import {mask} from 'vue-the-mask'
 import AuthService from "../../services/Api/AuthService.js";
 import NoticeService from "../../services/NoticeService.js";
+import {useAuthStore} from "../../stores/auth.js";
 
 export default {
+  setup() {
+    const authStore = useAuthStore();
+    return {authStore};
+  },
   name: "RegistrationForm",
   directives: {
     mask
@@ -141,11 +146,10 @@ export default {
           this.loading = true;
           let data = JSON.parse(JSON.stringify(Object.assign(this.form_data, {phone: this.unmaskedNumbers(this.form_data.phone)})))
 
-          AuthService.registration(data)
-              .then(({data}) => {
-                this.$refs.registrationForm.resetFields();
-                NoticeService.onSuccess('Регистрация', 'Вы успешно зарегистрировались. Подтвердите почту и войдите в систему.')
-                this.$router.push('/login')
+          this.authStore.registration(data)
+              .then(() => {
+                this.$router.push('/home')
+                NoticeService.onSuccess('Регистрация', 'Вы успешно зарегистрировались. Подтвердите почту.')
               })
               .catch(err => {
                 const response = err.response

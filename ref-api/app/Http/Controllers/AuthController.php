@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,9 @@ class AuthController extends Controller
             ['password' => bcrypt($validated['password'])]
         ));
 
-        return $this->successResponse($user, null, 201);
+        event(new Registered($user));
+
+        return $this->respondWithToken(auth()->login($user));
     }
 
     /**

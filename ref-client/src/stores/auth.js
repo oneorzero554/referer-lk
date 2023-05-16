@@ -5,16 +5,21 @@ export const useAuthStore = defineStore('auth', {
     state: () => {
         return {
             user: null,
-            isAuth: false
+            isAuth: false,
+            isVerified: false
         }
     },
     actions: {
         login({email, password}) {
             return AuthService.login(email, password)
                 .then(({data}) => {
-                    this.isAuth = true;
-                    this.user = data.data.user;
-                    localStorage.setItem('token', data.data.access_token);
+                    this.auth(data.data.access_token, data.data.user);
+                })
+        },
+        registration(data) {
+            return AuthService.registration(data)
+                .then(({data}) => {
+                    this.auth(data.data.access_token, data.data.user);
                 })
         },
         logout() {
@@ -28,8 +33,20 @@ export const useAuthStore = defineStore('auth', {
             return AuthService.me()
                 .then(({data}) => {
                     this.isAuth = true;
+                    this.verified(data.data)
                     this.user = data.data
                 })
+        },
+        auth(token, user) {
+            this.isAuth = true;
+            this.verified(user)
+            this.user = user;
+            localStorage.setItem('token', token)
+        },
+        verified(user) {
+            if (user.is_verified) {
+                this.isVerified = true;
+            }
         }
     }
 })
