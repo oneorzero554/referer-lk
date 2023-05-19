@@ -80,10 +80,6 @@ class AuthController extends Controller
      */
     public function refresh(): JsonResponse
     {
-        if (!auth()->user()) {
-            auth()->invalidate();
-        }
-
         return $this->respondWithToken(auth()->refresh());
     }
 
