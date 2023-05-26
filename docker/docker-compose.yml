@@ -24,6 +24,10 @@ services:
       - ../ref-api:/var/www
     networks:
       - ref-app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
   nginx:
     image: nginx:1.17-alpine
     restart: unless-stopped
