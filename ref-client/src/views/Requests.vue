@@ -9,8 +9,11 @@
       </PageHeader>
     </div>
     <div class="py-3 px-2 bg-zinc-100 rounded-xl xl:py-4 xl:px-3 grow">
-      <el-button type="primary" size="default" class="mb-5" @click="modalVisible = true">Новая заявка</el-button>
+      <el-button type="primary" size="default" class="mb-5" @click="modalVisible = true">
+        <span class="mr-1">Новая заявка</span><el-icon :size="25"><i-mdi-plus/></el-icon>
+      </el-button>
       <div class="px-4 py-6 bg-white rounded-xl">
+        <div class="text-xl font-medium mb-5">Список ваших заявок</div>
         <el-tabs
             type="card"
         >

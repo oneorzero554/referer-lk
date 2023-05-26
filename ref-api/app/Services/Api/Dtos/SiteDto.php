@@ -9,7 +9,8 @@ class SiteDto extends Data
     public function __construct(
         public int    $id,
         public string $url,
-        public array  $providers
+        public array  $providers,
+        public bool $is_categorizable
     )
     {
     }
@@ -27,7 +28,8 @@ class SiteDto extends Data
         return new self(
             $data['id'],
             $data['url'],
-            $providers
+            $providers,
+            $data['is_categorizable']
         );
     }
 }

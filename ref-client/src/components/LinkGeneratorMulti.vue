@@ -78,7 +78,7 @@
             :clearable="true"
             value-key="id"
             size="default"
-            :disabled="!row.site || !row.provider || !row.city"
+            :disabled="!row.site || !row.provider || !row.city || !row.isCategorizable"
             :loading="row.categoriesList.loading"
             @visible-change="(visible) => handleCategoriesVisible(row, visible)"
         >
@@ -98,9 +98,6 @@
         </el-button>
       </template>
     </el-table-column>
-    <!--    <template v-slot:empty>-->
-    <!--      <el-empty description="Пусто"/>-->
-    <!--    </template>-->
   </el-table>
 </template>
 
@@ -152,7 +149,8 @@ export default {
           categoriesList: {
             loading: false,
             data: []
-          }
+          },
+          isCategorizable: item.is_categorizable
         };
       });
     }

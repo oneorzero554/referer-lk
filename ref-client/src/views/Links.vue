@@ -10,9 +10,11 @@
 
   <div class="py-3 px-2 bg-zinc-100 rounded-xl xl:py-4 xl:px-3 grow space-y-5">
     <div class="p-4 bg-white rounded-xl">
+      <div class="text-xl font-medium mb-5">Мультипровайдерные сайты</div>
       <LinkGeneratorMulti :sites="multi" v-loading="loading"/>
     </div>
     <div class="p-4 bg-white rounded-xl">
+      <div class="text-xl font-medium mb-5">Монопровайдерные сайты</div>
       <LinkGeneratorMono :sites="mono" v-loading="loading"/>
     </div>
   </div>

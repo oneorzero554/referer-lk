@@ -15,7 +15,7 @@
         </div>
         <div class="flex justify-end py-3 px-2 bg-zinc-100 rounded-xl grow xl:py-4 xl:px-3">
           <el-dropdown :hide-on-click="false" trigger="click">
-            <div class="flex items-center bg-[#409eff] text-white rounded-xl py-1.5 px-3">
+            <div class="flex items-center bg-[#409eff] text-white rounded-xl py-1.5 px-5">
               <div class="flex-col items-end mr-3 hidden sm:flex">
                 <span class="mb-1 text-right font-bold">{{ user.full_name }}</span>
                 <span class="text-xs">{{ user.email }}</span>
